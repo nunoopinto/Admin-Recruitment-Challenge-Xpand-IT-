@@ -1,0 +1,25 @@
+<Server port="8005" shutdown="SHUTDOWN">
+    <Service name="Catalina">
+        <!-- Configure HTTPS connector on port 4041 with SSL settings -->
+        <Connector port="4041" protocol="org.apache.coyote.http11.Http11NioProtocol" 
+                   maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+                   clientAuth="false" sslProtocol="TLS" 
+                   keystoreFile="/opt/tomcat/ssl/tomcat.p12" keystorePass="changeit"
+                   keystoreType="PKCS12">
+                   
+            <!-- SSL certificate configuration -->
+            <SSLHostConfig>
+                <Certificate certificateKeystoreFile="/opt/tomcat/ssl/tomcat.p12"
+                             certificateKeystorePassword="changeit"
+                             type="RSA" />
+            </SSLHostConfig>
+        </Connector>
+        <!-- Request processing engine -->
+        <Engine name="Catalina" defaultHost="localhost">
+            <Host name="localhost" appBase="webapps"
+                  unpackWARs="true" autoDeploy="true">
+            <!-- Configures the localhost virtual host with automatic WAR deployment -->
+            </Host>
+        </Engine>
+    </Service>
+</Server>
